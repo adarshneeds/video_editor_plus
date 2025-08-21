@@ -28,7 +28,7 @@ class CoverScreen extends StatelessWidget {
           child: ValueListenableBuilder(
               valueListenable: controller.selectedCoverNotifier,
               builder: (context, value, child) {
-                if (value == null) {
+                if (value?.thumbData == null) {
                   return const Center(child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3));
                 }
                 return Column(
