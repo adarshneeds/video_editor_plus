@@ -12,6 +12,8 @@ class FFmpegCommandExecutor {
     required String execute,
     required String outputPath,
     String? outputMimeType,
+    Duration? videoDuration, // pass video duration here
+    void Function(double progress)? onProgress, // progress callback
     void Function(FFmpegStatistics)? onStatistics,
   }) {
     final completer = Completer<XFile>();
@@ -36,7 +38,23 @@ class FFmpegCommandExecutor {
         }
       },
       null,
-      onStatistics != null ? (s) => onStatistics(FFmpegStatistics.fromIOStatistics(s)) : null,
+      (stats) {
+        final stat = FFmpegStatistics.fromIOStatistics(stats);
+
+        // Calculate progress %
+        if (videoDuration != null) {
+          final time = stat.time; // in milliseconds
+          if (time > 0) {
+            final progress = (time / videoDuration.inMilliseconds).clamp(0.0, 1.0) * 100;
+            onProgress?.call(progress);
+          }
+        }
+
+        // Keep existing statistics callback
+        if (onStatistics != null) {
+          onStatistics(stat);
+        }
+      },
     );
 
     return completer.future;
