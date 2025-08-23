@@ -390,7 +390,7 @@ import 'dart:async';
 import 'package:flutter/foundation.dart';
 import 'package:path/path.dart' as path;
 import 'package:path_provider/path_provider.dart';
-import 'package:video_editor_plus/domain/entities/file_format.dart';
+import 'package:video_editor_plus/models/file_format.dart';
 import 'package:video_editor_plus/video_editor.dart';
 import 'package:video_thumbnail/video_thumbnail.dart';
 
@@ -521,7 +521,7 @@ import 'dart:async';
 
 import 'package:ffmpeg_kit_flutter_min_gpl/ffprobe_kit.dart';
 import 'package:flutter/foundation.dart';
-import 'package:video_editor_plus/domain/entities/file_format.dart';
+import 'package:video_editor_plus/models/file_format.dart';
 
 Future<void> getMetaData(
     {required void Function(Map<dynamic, dynamic>? metadata)

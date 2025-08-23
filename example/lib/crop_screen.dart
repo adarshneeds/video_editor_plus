@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:fraction/fraction.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:video_editor_example/editor_next_button.dart';
 import 'package:video_editor_example/trimmer_screen.dart';
 import 'package:video_editor_plus/video_editor.dart';
 
@@ -38,7 +39,7 @@ class _CropScreenState extends State<CropScreen> {
         selectedBorderColor: Colors.yellow,
       ),
     );
-    _controller.initialize().then((_) {
+    _controller.initialize(aspectRatio: 16 / 9).then((_) {
       // Set preferred crop aspect ratio
       _controller.preferredCropAspectRatio = Fraction.fromString("9/16").toDouble();
       _controller.video.play();
@@ -84,7 +85,7 @@ class _CropScreenState extends State<CropScreen> {
                             ),
                           ),
                           const SizedBox(height: 12),
-                          NextButton(onPressed: () => _onNextPressed(context)),
+                          EditorNextButton(onPressed: () => _onNextPressed(context)),
                         ],
                       )
                     : const Center(child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3));
@@ -95,38 +96,11 @@ class _CropScreenState extends State<CropScreen> {
   }
 
   void _onNextPressed(BuildContext context) {
-    // Validate crop parameters set in the crop view
     _controller.applyCacheCrop();
     Navigator.push(
       context,
       MaterialPageRoute(
         builder: (context) => TrimmerScreen(controller: _controller),
-      ),
-    );
-  }
-}
-
-class NextButton extends StatelessWidget {
-  const NextButton({super.key, required this.onPressed});
-  final Function() onPressed;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 60,
-      child: Align(
-        alignment: Alignment.centerRight,
-        child: ElevatedButton.icon(
-          style: ElevatedButton.styleFrom(
-            padding: const EdgeInsets.only(left: 28, right: 16, top: 10, bottom: 10),
-            backgroundColor: Colors.white,
-            foregroundColor: Colors.black,
-          ),
-          iconAlignment: IconAlignment.end,
-          icon: const Icon(Icons.arrow_forward_ios_rounded, color: Colors.black),
-          label: const Text("Next", style: TextStyle(color: Colors.black)),
-          onPressed: onPressed,
-        ),
       ),
     );
   }

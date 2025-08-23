@@ -14,9 +14,6 @@ dependencies:
   fraction: ^5.0.3
   image_picker: ^1.1.2
   video_player: ^2.9.1
-  path_provider: ^2.1.4
-  path: ^1.9.0
-  cross_file: ^0.3.4+2
 
 dev_dependencies:
   flutter_test:

@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:video_editor_example/crop_screen.dart';
 import 'package:video_editor_example/cover_screen.dart';
+import 'package:video_editor_example/editor_next_button.dart';
 import 'package:video_editor_plus/video_editor.dart';
 
 class TrimmerScreen extends StatelessWidget {
   const TrimmerScreen({super.key, required this.controller});
   final VideoEditorController controller;
+  final int cropGridViewerKey = 0;
+
+  String _formatter(Duration duration) => [
+        duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
+        duration.inSeconds.remainder(60).toString().padLeft(2, '0')
+      ].join(":");
 
   @override
   Widget build(BuildContext context) {
-    int cropGridViewerKey = 0;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -31,10 +36,7 @@ class TrimmerScreen extends StatelessWidget {
                     Text(_formatter(controller.startTrim), style: const TextStyle(fontSize: 12)),
                     const SizedBox(width: 18),
                     AnimatedBuilder(
-                      animation: Listenable.merge([
-                        controller,
-                        controller.video,
-                      ]),
+                      animation: Listenable.merge([controller, controller.video]),
                       builder: (_, __) {
                         final duration = controller.videoDuration.inSeconds;
                         final pos = controller.trimPosition * duration;
@@ -121,11 +123,14 @@ class TrimmerScreen extends StatelessWidget {
                                   ValueListenableBuilder(
                                     valueListenable: controller.video,
                                     builder: (context, value, child) {
-                                      return Text("${controller.endTrim.inSeconds - controller.startTrim.inSeconds}s");
+                                      return Text(
+                                        "${controller.endTrim.inSeconds - controller.startTrim.inSeconds}s",
+                                        style: const TextStyle(color: Colors.white60),
+                                      );
                                     },
                                   ),
                                   const Spacer(),
-                                  NextButton(onPressed: () => _onNextPressed(context)),
+                                  EditorNextButton(onPressed: () => _onNextPressed(context)),
                                 ],
                               );
                             },
@@ -140,11 +145,6 @@ class TrimmerScreen extends StatelessWidget {
       ),
     );
   }
-
-  String _formatter(Duration duration) => [
-        duration.inMinutes.remainder(60).toString().padLeft(2, '0'),
-        duration.inSeconds.remainder(60).toString().padLeft(2, '0')
-      ].join(":");
 
   void _onNextPressed(BuildContext context) {
     controller.video.pause();

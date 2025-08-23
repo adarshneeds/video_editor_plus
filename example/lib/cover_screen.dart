@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:video_editor_example/crop_screen.dart';
-import 'package:video_editor_plus/domain/bloc/controller.dart';
-import 'package:video_editor_plus/ui/cover/cover_selection.dart';
-import 'package:video_editor_plus/ui/cover/cover_viewer.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:video_editor_example/editor_next_button.dart';
+import 'package:video_editor_example/test_export_screen.dart';
+import 'package:video_editor_plus/video_editor.dart';
 
 class CoverScreen extends StatelessWidget {
   const CoverScreen({super.key, required this.controller});
@@ -28,7 +28,7 @@ class CoverScreen extends StatelessWidget {
           child: ValueListenableBuilder(
               valueListenable: controller.selectedCoverNotifier,
               builder: (context, value, child) {
-                if (value?.thumbData == null) {
+                if (value == null) {
                   return const Center(child: CircularProgressIndicator(color: Colors.white, strokeWidth: 3));
                 }
                 return Column(
@@ -59,12 +59,22 @@ class CoverScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 12),
-                    NextButton(onPressed: () {}),
+                    EditorNextButton(onPressed: () => _onNextPressed(context)),
                   ],
                 );
               }),
         ),
       ),
+    );
+  }
+
+  Future<void> _onNextPressed(BuildContext context) async {
+    final XFile file = await ExportService.exportVideo(controller: controller);
+    final XFile cover = await ExportService.extractCover(controller: controller);
+    if (context.mounted == false) return;
+    Navigator.push(
+      context,
+      MaterialPageRoute(builder: (context) => TestExportScreen(file: file, cover: cover)),
     );
   }
 }

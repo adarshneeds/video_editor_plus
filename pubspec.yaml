@@ -9,9 +9,12 @@ environment:
 
 dependencies:
   cross_file: ^0.3.4+2
+  ffmpeg_kit_flutter_new_min_gpl: ^1.1.0
   flutter:
     sdk: flutter
   get_thumbnail_video: ^0.7.3
+  path: ^1.9.1
+  path_provider: ^2.1.5
   transparent_image: ^2.0.1
   video_player: ^2.10.0
 
