@@ -9,7 +9,7 @@ import 'package:video_editor_plus/models/file_format.dart';
 import 'package:video_editor_plus/ffmpeg/ffmpeg_statistics.dart';
 import 'package:video_editor_plus/video_editor.dart';
 
-class ExportService {
+class ExportServices {
   static Future<String> ioOutputPath(String filePath, FileFormat format) async {
     final tempPath = (await getTemporaryDirectory()).path;
     final name = path.basenameWithoutExtension(filePath);

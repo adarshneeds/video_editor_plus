@@ -69,8 +69,8 @@ class CoverScreen extends StatelessWidget {
   }
 
   Future<void> _onNextPressed(BuildContext context) async {
-    final XFile file = await ExportService.exportVideo(controller: controller);
-    final XFile cover = await ExportService.extractCover(controller: controller);
+    final XFile file = await ExportServices.exportVideo(controller: controller);
+    final XFile cover = await ExportServices.extractCover(controller: controller);
     if (context.mounted == false) return;
     Navigator.push(
       context,
