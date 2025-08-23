@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fraction/fraction.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:video_editor_example/editor_next_button.dart';
 import 'package:video_editor_example/trimmer_screen.dart';
