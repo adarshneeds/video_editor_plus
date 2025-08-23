@@ -35,7 +35,12 @@ class CoverScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Expanded(child: CoverViewer(controller: controller)),
+                    Expanded(
+                      child: AspectRatio(
+                        aspectRatio: 9 / 16,
+                        child: CoverViewer(controller: controller),
+                      ),
+                    ),
                     const SizedBox(height: 25),
                     SizedBox(
                       height: 120,

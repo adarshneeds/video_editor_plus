@@ -75,9 +75,12 @@ class TrimmerScreen extends StatelessWidget {
                         Expanded(
                           child: Stack(
                             children: [
-                              CropGridViewer.preview(
-                                key: ValueKey(cropGridViewerKey),
-                                controller: controller,
+                              AspectRatio(
+                                aspectRatio: 9 / 16,
+                                child: CropGridViewer.preview(
+                                  key: ValueKey(cropGridViewerKey),
+                                  controller: controller,
+                                ),
                               ),
                               Positioned(
                                 bottom: 0,

@@ -39,9 +39,9 @@ class _CropScreenState extends State<CropScreen> {
         selectedBorderColor: Colors.yellow,
       ),
     );
-    _controller.initialize(aspectRatio: 16 / 9).then((_) {
+    _controller.initialize(aspectRatio: 9 / 16).then((_) {
       // Set preferred crop aspect ratio
-      _controller.preferredCropAspectRatio = Fraction.fromString("9/16").toDouble();
+      _controller.preferredCropAspectRatio = (9 / 16).toDouble();
       _controller.video.play();
     }).catchError((error) {
       if (mounted) Navigator.pop(context);
